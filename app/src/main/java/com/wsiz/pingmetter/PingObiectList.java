@@ -70,7 +70,7 @@ public class PingObiectList {
             }
 
             result = value / count;
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ArithmeticException e ) {
             e.fillInStackTrace();
         }
 
@@ -89,21 +89,24 @@ public class PingObiectList {
             if(Integer.parseInt(pingList.get(i).getDate())==hour){
                 System.out.println(hour +"="+ pingList.get(i).getDate());
                 PingListHour.add(pingList.get(i));
+                System.out.println("DODANO: " + pingList.get(i).getDate());
+                System.out.println("DODANO2: " + pingList.get(i).getTime());
             }
 
         }
     }
 
     public void showPingListByHour() {
+        System.out.println("PING LIST HOUR");
         for (int i = 0; i < PingListHour.size(); i++) {
-            System.out.println(PingListHour.get(i).toString());
+            System.out.println(PingListHour.get(i).getTime());
         }
     }
 
     public double getValueOfListByHour(){
         double result = 0;
         for (int i = 0; i < PingListHour.size(); i++) {
-            result+=Double.parseDouble(PingListHour.get(i).getDate());
+            result+=PingListHour.get(i).getTime();
         }
         return result/PingListHour.size();
     }

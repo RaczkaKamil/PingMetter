@@ -63,15 +63,19 @@ public class DashboardFragment extends Fragment {
     private void reloadPing() {
         ping = new Ping(getContext());
         ping.pingObiectList.loadPing();
+try{
+    tf_host.post(() -> tf_host.setText("wsi.edu.pl"));
+    tf_pingMax.post(() -> tf_pingMax.setText(ping.pingObiectList.getMax() +" ms"));
+    tf_pingMin.post(() -> tf_pingMin.setText(ping.pingObiectList.getMin() +" ms"));
+    tf_pingSr.post(() -> tf_pingSr.setText(ping.pingObiectList.getSr() +" ms"));
+    tf_connection.post(() -> tf_connection.setText("WIFI/TRANSFER"));
 
-        tf_host.post(() -> tf_host.setText("wsi.edu.pl"));
-        tf_pingMax.post(() -> tf_pingMax.setText(ping.pingObiectList.getMax() +" ms"));
-        tf_pingMin.post(() -> tf_pingMin.setText(ping.pingObiectList.getMin() +" ms"));
-        tf_pingSr.post(() -> tf_pingSr.setText(ping.pingObiectList.getSr() +" ms"));
-        tf_connection.post(() -> tf_connection.setText("WIFI/TRANSFER"));
+    tf_records.setText( String.valueOf(ping.pingObiectList.getPingList().size()));
+    showGraph();
+}catch (ArithmeticException e){
+    e.fillInStackTrace();
+}
 
-        tf_records.setText( String.valueOf(ping.pingObiectList.getPingList().size()));
-        showGraph();
     }
 
     private void showGraph() {
